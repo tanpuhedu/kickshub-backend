@@ -12,19 +12,20 @@ public enum ErrorCode {
     UNCATEGORIZED(9999, "An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR),
     KEY_INVALID(1003, "Invalid message key", HttpStatus.BAD_REQUEST),
 
-    //    USER ERROR
+//    USER ERROR
     USER_EXISTED(2001, "User already existed", HttpStatus.BAD_REQUEST),
     USER_NOT_FOUND(2002, "User not existed", HttpStatus.NOT_FOUND),
     USER_USERNAME_INVALID(2003, "Username must be at least {min} characters", HttpStatus.BAD_REQUEST),
     USER_PASSWORD_INVALID(2004, "Password must be at least {min} characters", HttpStatus.BAD_REQUEST),
-    USER_FULLNAME_INVALID(2005, "Full name is required", HttpStatus.BAD_REQUEST),
+    USER_FULLNAME_BLANK(2005, "Full name is required", HttpStatus.BAD_REQUEST),
     USER_PHONE_NULL(2008, "Phone number is required", HttpStatus.BAD_REQUEST),
-    USER_PHONE_INVALID(2008, "Phone number is invalid", HttpStatus.BAD_REQUEST),
-    USER_MAIL_INVALID(2007, "Email is required", HttpStatus.BAD_REQUEST),
+    USER_PHONE_INVALID(2008, "Phone number format is invalid", HttpStatus.BAD_REQUEST),
+    USER_MAIL_NULL(2008, "Email is required", HttpStatus.BAD_REQUEST),
+    USER_MAIL_INVALID(2007, "Email format is invalid", HttpStatus.BAD_REQUEST),
     USER_STATUS_NULL(2008, "Status is required", HttpStatus.BAD_REQUEST),
     USER_STATUS_INVALID(2008, "Status must be {min} (INACTIVE) or {max} (ACTIVE)", HttpStatus.BAD_REQUEST),
 
-    //    COLOR ERROR
+//    COLOR ERROR
     COLOR_EXISTED(3001, "Color already existed", HttpStatus.BAD_REQUEST),
     COLOR_NOT_FOUND(3002, "Color not existed", HttpStatus.NOT_FOUND),
     COLOR_NAME_BLANK(3003, "Color name is required", HttpStatus.BAD_REQUEST),
@@ -39,14 +40,14 @@ public enum ErrorCode {
     CATEGORY_NOT_FOUND(5002, "Category not existed", HttpStatus.NOT_FOUND),
     CATEGORY_NAME_BLANK(5003, "Category name is required", HttpStatus.BAD_REQUEST),
 
-    //    ROLE ERROR
+//    ROLE ERROR
     ROLE_EXISTED(6001, "Role already existed", HttpStatus.BAD_REQUEST),
     ROLE_NOT_FOUND(6002, "Role not existed", HttpStatus.NOT_FOUND),
     ROLE_NAME_BLANK(6003, "Role name is required", HttpStatus.BAD_REQUEST),
     ROLE_PERMISSIONS_EMPTY(6003, "Role permission id list is required", HttpStatus.BAD_REQUEST),
     ROLE_PERMISSION_ID_NULL(6003, "Role permission id is required", HttpStatus.BAD_REQUEST),
 
-    //    PERMISSION ERROR
+//    PERMISSION ERROR
     PERMISSION_EXISTED(7001, "Permission already existed", HttpStatus.BAD_REQUEST),
     PERMISSION_NOT_FOUND(7002, "Permission not existed", HttpStatus.NOT_FOUND),
     PERMISSION_NAME_BLANK(7003, "Permission name is required", HttpStatus.BAD_REQUEST),
