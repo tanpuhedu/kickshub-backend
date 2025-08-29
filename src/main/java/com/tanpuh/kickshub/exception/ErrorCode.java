@@ -10,7 +10,13 @@ import org.springframework.http.HttpStatusCode;
 public enum ErrorCode {
 //    GLOBAL ERROR
     UNCATEGORIZED(9999, "An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR),
+    UNAUTHENTICATED(1001, "Authentication is required", HttpStatus.UNAUTHORIZED),
+    UNAUTHORIZED(1002, "You do not have permission", HttpStatus.FORBIDDEN),
     KEY_INVALID(1003, "Invalid message key", HttpStatus.BAD_REQUEST),
+
+//    AUTH ERROR
+    USERNAME_NULL(2001, "Username is required", HttpStatus.BAD_REQUEST),
+    PASSWORD_NULL(2001, "Password is required", HttpStatus.BAD_REQUEST),
 
 //    USER ERROR
     USER_EXISTED(2001, "User already existed", HttpStatus.BAD_REQUEST),
