@@ -1,5 +1,6 @@
 package com.tanpuh.kickshub.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tanpuh.kickshub.utils.validators.StatusConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor @AllArgsConstructor
@@ -26,4 +30,8 @@ public class ProductUpdateRequest {
 
     @NotNull (message = "PRODUCT_CATEGORY_NULL")
     CategoryRequest category;
+
+    @NotNull (message = "PRODUCT_FILES_NULL")
+    @JsonIgnore
+    List<MultipartFile> imgFiles;
 }
