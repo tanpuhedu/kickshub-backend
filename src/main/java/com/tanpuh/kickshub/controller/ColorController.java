@@ -4,6 +4,8 @@ import com.tanpuh.kickshub.dto.request.ColorRequest;
 import com.tanpuh.kickshub.dto.response.ApiResponse;
 import com.tanpuh.kickshub.dto.response.ColorResponse;
 import com.tanpuh.kickshub.service.color.ColorService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +18,12 @@ import java.util.List;
 @RequestMapping("/colors")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Tag(name = "Color Controller")
 public class ColorController {
     ColorService colorService;
 
     @GetMapping
+    @Operation(summary = "get list of colors")
     public ApiResponse<List<ColorResponse>> getAll() {
         return ApiResponse.<List<ColorResponse>>builder()
                 .data(colorService.getAll())
@@ -28,6 +32,7 @@ public class ColorController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "get color by id")
     public ApiResponse<ColorResponse> getById(@PathVariable Integer id) {
         return ApiResponse.<ColorResponse>builder()
                 .data(colorService.getById(id))
@@ -36,6 +41,7 @@ public class ColorController {
     }
 
     @PostMapping
+    @Operation(summary = "create new color")
     public ApiResponse<ColorResponse> create(@RequestBody @Valid ColorRequest colorRequest) {
         return ApiResponse.<ColorResponse>builder()
                 .message("Create color successfully")
@@ -44,6 +50,7 @@ public class ColorController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "update color by id")
     public ApiResponse<ColorResponse> update(@PathVariable Integer id, @RequestBody @Valid ColorRequest colorRequest) {
         return ApiResponse.<ColorResponse>builder()
                 .message("Update color successfully")
@@ -52,6 +59,7 @@ public class ColorController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "delete color by id")
     public ApiResponse<Void> delete(@PathVariable Integer id){
         colorService.delete(id);
         return ApiResponse.<Void>builder()

@@ -5,6 +5,8 @@ import com.tanpuh.kickshub.dto.request.ProductUpdateRequest;
 import com.tanpuh.kickshub.dto.response.ApiResponse;
 import com.tanpuh.kickshub.dto.response.ProductResponse;
 import com.tanpuh.kickshub.service.product.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/products")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Tag(name = "Product Controller")
 public class ProductController {
     ProductService productService;
 
@@ -29,12 +32,13 @@ public class ProductController {
 //    }
 
     @GetMapping
+    @Operation(summary = "get list of products by criteria")
     public ApiResponse<List<ProductResponse>> getAllByCriteria(
             @RequestParam(value = "sortBy", required = false) List<String> sortBy,
             @RequestParam(value = "sortDir", required = false) String sortDir,
             @RequestParam(value = "pageIdx", required = false) Integer pageIdx,
             @RequestParam(value = "pageSize", required = false) Integer pageSize
-            ) {
+    ) {
         return ApiResponse.<List<ProductResponse>>builder()
                 .data(productService.getAllByCriteria(sortBy, sortDir, pageIdx, pageSize))
                 .message("Get list of products by criteria successfully")
@@ -42,6 +46,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "get product by id")
     public ApiResponse<ProductResponse> getById(@PathVariable Integer id) {
         return ApiResponse.<ProductResponse>builder()
                 .data(productService.getById(id))
@@ -50,6 +55,7 @@ public class ProductController {
     }
 
     @GetMapping("/search")
+    @Operation(summary = "search product with keyword")
     public ApiResponse<List<ProductResponse>> search(
 //            required = false là từ khoá có thể truyền vào hoặc không truyền vào, cho phép null
             @RequestParam(value = "name", required = false) String name,
@@ -65,6 +71,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @Operation(summary = "create new product")
     public ApiResponse<ProductResponse> create(@ModelAttribute @Valid ProductCreationRequest request) {
         // @ModelAttribute có thể hứng được file còn @RequestBody thì không
         // Chọn form data để nhập thay vì JSON
@@ -75,6 +82,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "update product by id")
     public ApiResponse<ProductResponse> update(
             @PathVariable Integer id,
             @ModelAttribute @Valid ProductUpdateRequest request
@@ -86,6 +94,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "delete product by id")
     public ApiResponse<Void> delete(@PathVariable Integer id) {
         productService.delete(id);
         return ApiResponse.<Void>builder()

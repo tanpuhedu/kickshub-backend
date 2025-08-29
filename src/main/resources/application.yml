@@ -19,3 +19,10 @@ cloudinary:
   cloud_name: "dcudlkqcm"
   api_key: "734251979716821"
   api_secret: "WHzx_91QpnZwhLi0DOrxJGMJDT4"
+
+open-api:
+  title: "KicksHub API document"
+  version: "v1.0.0"
+  description: "KicksHub API service"
+  server-url: "http://localhost:8080"
+  server-name: "server test"

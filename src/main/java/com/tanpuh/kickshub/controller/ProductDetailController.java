@@ -5,6 +5,8 @@ import com.tanpuh.kickshub.dto.request.ProductDetailUpdateRequest;
 import com.tanpuh.kickshub.dto.response.ApiResponse;
 import com.tanpuh.kickshub.dto.response.ProductDetailResponse;
 import com.tanpuh.kickshub.service.product_detail.ProductDetailService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +19,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/product-details")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Tag(name = "Product Detail Controller")
 public class ProductDetailController {
     ProductDetailService productDetailService;
 
     @GetMapping
+    @Operation(summary = "get list of product details")
     public ApiResponse<List<ProductDetailResponse>> getAll() {
         return ApiResponse.<List<ProductDetailResponse>>builder()
                 .data(productDetailService.getAll())
@@ -29,6 +33,7 @@ public class ProductDetailController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "get product detail by id")
     public ApiResponse<ProductDetailResponse> getById(@PathVariable Integer id) {
         return ApiResponse.<ProductDetailResponse>builder()
                 .data(productDetailService.getById(id))
@@ -37,6 +42,7 @@ public class ProductDetailController {
     }
 
     @PostMapping
+    @Operation(summary = "create new product detail")
     public ApiResponse<ProductDetailResponse> create(@RequestBody @Valid ProductDetailCreationRequest request) {
         return ApiResponse.<ProductDetailResponse>builder()
                 .message("Create product detail successfully")
@@ -45,6 +51,7 @@ public class ProductDetailController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "update product detail by id")
     public ApiResponse<ProductDetailResponse> update(
             @PathVariable Integer id,
             @RequestBody @Valid ProductDetailUpdateRequest request
@@ -56,6 +63,7 @@ public class ProductDetailController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "delete product detail by id")
     public ApiResponse<Void> delete(@PathVariable Integer id) {
         productDetailService.delete(id);
         return ApiResponse.<Void>builder()
