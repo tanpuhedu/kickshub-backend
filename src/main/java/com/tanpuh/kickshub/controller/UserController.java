@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,10 @@ public class UserController {
     @GetMapping
     @Operation(summary = "get list of users")
     public ApiResponse<List<UserResponse>> getAll() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("Username: {}", authentication.getName());
+        authentication.getAuthorities().forEach(grantedAuthority -> log.info(grantedAuthority.getAuthority()));
+
         return ApiResponse.<List<UserResponse>>builder()
                 .data(userService.getAll())
                 .message("Get list of users successfully")
@@ -40,6 +45,15 @@ public class UserController {
         return ApiResponse.<UserResponse>builder()
                 .data(userService.getById(id))
                 .message("Get user successfully")
+                .build();
+    }
+
+    @GetMapping("/my-info")
+    @Operation(summary = "get user's info")
+    public ApiResponse<UserResponse> getMyInfo() {
+        return ApiResponse.<UserResponse>builder()
+                .data(userService.getMyInfo())
+                .message("Get user's info successfully")
                 .build();
     }
 
