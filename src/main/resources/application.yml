@@ -26,3 +26,8 @@ open-api:
   description: "KicksHub API service"
   server-url: "http://localhost:8080"
   server-name: "server test"
+
+jwt:
+  signer-key: "vXzlkcYAWyTfH8+TZ3/Uncec1eaLoljAbOOBWsZQSeInpLZxYwXAehEkDuBUV5K8"
+  valid-duration: 3600 # in second
+  refreshable-duration: 36000 # in second
