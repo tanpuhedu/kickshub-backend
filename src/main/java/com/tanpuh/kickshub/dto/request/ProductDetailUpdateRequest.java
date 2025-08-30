@@ -25,11 +25,11 @@ public class ProductDetailUpdateRequest {
     Long price;
 
     @NotNull (message = "PRODUCT_DETAIL_STOCKQTY_NULL")
-    @PositiveOrZero (message = "PRODUCT_DETAIL_PRICE_NEGATIVE")
+    @PositiveOrZero (message = "PRODUCT_DETAIL_STOCKQTY_NEGATIVE")
     Integer stockQty;
 
     @NotNull (message = "PRODUCT_DETAIL_STATUS_NULL")
-    @StatusConstraint(min = 0, max = 1, message = "PRODUCT_DETAIL_STATUS_INVALID")
+    @StatusConstraint (min = 0, max = 1, message = "PRODUCT_DETAIL_STATUS_INVALID")
     Integer status;
 
     @NotNull (message = "PRODUCT_DETAIL_PRODUCT_NULL")

@@ -76,13 +76,15 @@ public enum ErrorCode {
     PRODUCT_DETAIL_NAME_BLANK(8004, "Product detail name is required",HttpStatus.BAD_REQUEST),
     PRODUCT_DETAIL_PRICE_NULL(8004, "Product detail price is required",HttpStatus.BAD_REQUEST),
     PRODUCT_DETAIL_PRICE_NEGATIVE_OR_ZERO
-            (8004, "Product detail price must be positive",HttpStatus.BAD_REQUEST),
+            (8004, "Product detail price must be greater than 0",HttpStatus.BAD_REQUEST),
     PRODUCT_DETAIL_STOCKQTY_NULL
             (8004, "Product detail stock quantity is required",HttpStatus.BAD_REQUEST),
-    PRODUCT_DETAIL_STOCKQTY_NEGATIVE
-            (8004, "Product detail stock quantity must be positive or zero",HttpStatus.BAD_REQUEST),
+    PRODUCT_DETAIL_STOCKQTY_NEGATIVE(8004,
+                    "Product detail stock quantity must be greater than or equal to 0",
+                    HttpStatus.BAD_REQUEST),
     PRODUCT_DETAIL_STATUS_NULL(8005, "Product detail status is required",HttpStatus.BAD_REQUEST),
-    PRODUCT_DETAIL_STATUS_INVALID(8005, "Product detail status must be {min} (INACTIVE) or {max} (ACTIVE)",
+    PRODUCT_DETAIL_STATUS_INVALID(8005,
+            "Product detail status must be {min} (INACTIVE) or {max} (ACTIVE)",
                     HttpStatus.BAD_REQUEST),
     PRODUCT_DETAIL_PRODUCT_NULL(8005, "Product detail's product is required",HttpStatus.BAD_REQUEST),
     PRODUCT_DETAIL_SIZE_NULL(8005, "Product detail's size is required",HttpStatus.BAD_REQUEST),

@@ -27,7 +27,7 @@ public class ProductDetailCreationRequest {
     Long price;
 
     @NotNull (message = "PRODUCT_DETAIL_STOCKQTY_NULL")
-    @PositiveOrZero (message = "PRODUCT_DETAIL_PRICE_NEGATIVE")
+    @PositiveOrZero (message = "PRODUCT_DETAIL_STOCKQTY_NEGATIVE")
     Integer stockQty;
 
     @NotNull (message = "PRODUCT_DETAIL_PRODUCT_NULL")
