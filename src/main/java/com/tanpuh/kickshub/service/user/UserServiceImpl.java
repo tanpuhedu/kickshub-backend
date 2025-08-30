@@ -3,11 +3,13 @@ package com.tanpuh.kickshub.service.user;
 import com.tanpuh.kickshub.dto.request.UserCreationRequest;
 import com.tanpuh.kickshub.dto.request.UserUpdateRequest;
 import com.tanpuh.kickshub.dto.response.UserResponse;
+import com.tanpuh.kickshub.entity.Cart;
 import com.tanpuh.kickshub.entity.Role;
 import com.tanpuh.kickshub.entity.User;
 import com.tanpuh.kickshub.exception.AppException;
 import com.tanpuh.kickshub.exception.ErrorCode;
 import com.tanpuh.kickshub.mapper.UserMapper;
+import com.tanpuh.kickshub.repository.CartRepository;
 import com.tanpuh.kickshub.repository.RoleRepository;
 import com.tanpuh.kickshub.repository.UserRepository;
 import com.tanpuh.kickshub.utils.enums.EntityStatus;
@@ -33,6 +35,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
+    CartRepository cartRepository;
     UserMapper mapper;
     PasswordEncoder passwordEncoder;
 
@@ -74,12 +77,18 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setStatus(EntityStatus.ACTIVE);
 
-        // khi client đăng kí acc mới, thì ROLE mặc định là USER
         HashSet<Role> roles = new HashSet<>();
         roleRepository.findById(PredefinedRole.USER.getId()).ifPresent(roles::add);
         user.setRoles(roles);
+        userRepository.save(user);
 
-        return mapper.toResponse(userRepository.save(user));
+        Cart cart = Cart.builder()
+                .totalQty(0)
+                .user(user)
+                .build();
+        cartRepository.save(cart);
+
+        return mapper.toResponse(user);
     }
 
     @Override
