@@ -90,6 +90,9 @@ public enum ErrorCode {
 
 //    CART ITEM ERROR
     CART_ITEM_NOT_FOUND(9001, "Cart item not existed", HttpStatus.NOT_FOUND),
+    CART_ITEM_QTY_NULL(9002, "Cart item quantity is required", HttpStatus.BAD_REQUEST),
+    CART_ITEM_QTY_NEGATIVE
+            (9003, "Cart item quantity must be greater than or equal to 0", HttpStatus.BAD_REQUEST),
 
 //    CART ERROR
     CART_NOT_FOUND(10001, "Cart not existed", HttpStatus.NOT_FOUND),

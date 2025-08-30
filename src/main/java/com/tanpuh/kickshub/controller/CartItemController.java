@@ -7,6 +7,7 @@ import com.tanpuh.kickshub.service.cart.CartItemService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -22,7 +23,7 @@ public class CartItemController {
 
     @PostMapping
     @Operation(summary = "add to cart")
-    public ApiResponse<CartItemResponse> create(@RequestBody CartItemRequest request) {
+    public ApiResponse<CartItemResponse> create(@RequestBody @Valid CartItemRequest request) {
         return ApiResponse.<CartItemResponse>builder()
                 .data(cartItemService.addToCart(request))
                 .message("Create cart item successfully")
