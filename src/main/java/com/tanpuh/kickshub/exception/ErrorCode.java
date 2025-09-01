@@ -25,9 +25,9 @@ public enum ErrorCode {
     USER_PASSWORD_INVALID(2004, "Password must be at least {min} characters", HttpStatus.BAD_REQUEST),
     USER_FULLNAME_BLANK(2005, "Full name is required", HttpStatus.BAD_REQUEST),
     USER_PHONE_NULL(2008, "Phone number is required", HttpStatus.BAD_REQUEST),
-    USER_PHONE_INVALID(2008, "Phone number format is invalid", HttpStatus.BAD_REQUEST),
+    USER_PHONE_INVALID(2008, "Phone number is not well-formed", HttpStatus.BAD_REQUEST),
     USER_MAIL_NULL(2008, "Email is required", HttpStatus.BAD_REQUEST),
-    USER_MAIL_INVALID(2007, "Email format is invalid", HttpStatus.BAD_REQUEST),
+    USER_MAIL_INVALID(2007, "Email is not well-formed", HttpStatus.BAD_REQUEST),
     USER_STATUS_NULL(2008, "Status is required", HttpStatus.BAD_REQUEST),
     USER_STATUS_INVALID(2008, "Status must be {min} (INACTIVE) or {max} (ACTIVE)", HttpStatus.BAD_REQUEST),
 
