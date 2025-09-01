@@ -3,6 +3,7 @@ package com.tanpuh.kickshub.controller;
 import com.tanpuh.kickshub.dto.request.CartItemRequest;
 import com.tanpuh.kickshub.dto.response.ApiResponse;
 import com.tanpuh.kickshub.dto.response.CartItemResponse;
+import com.tanpuh.kickshub.dto.response.CartResponse;
 import com.tanpuh.kickshub.service.cart.CartItemService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,6 +22,15 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Cart Item Controller")
 public class CartItemController {
     CartItemService cartItemService;
+
+    @GetMapping
+    @Operation(summary = "view cart by username from token")
+    public ApiResponse<CartResponse> viewCart(Authentication authentication) {
+        return ApiResponse.<CartResponse>builder()
+                .data(cartItemService.getCartByUsername(authentication.getName()))
+                .message("Get cart successfully")
+                .build();
+    }
 
     @PostMapping
     @Operation(summary = "add to cart")
