@@ -2,15 +2,18 @@ package com.tanpuh.kickshub.service.cart;
 
 import com.tanpuh.kickshub.dto.request.CartItemRequest;
 import com.tanpuh.kickshub.dto.response.CartItemResponse;
+import com.tanpuh.kickshub.dto.response.CartResponse;
 import com.tanpuh.kickshub.entity.Cart;
 import com.tanpuh.kickshub.entity.CartItem;
 import com.tanpuh.kickshub.entity.ProductDetail;
+import com.tanpuh.kickshub.entity.User;
 import com.tanpuh.kickshub.exception.AppException;
 import com.tanpuh.kickshub.exception.ErrorCode;
 import com.tanpuh.kickshub.mapper.CartItemMapper;
 import com.tanpuh.kickshub.repository.CartItemRepository;
 import com.tanpuh.kickshub.repository.CartRepository;
 import com.tanpuh.kickshub.repository.ProductDetailRepository;
+import com.tanpuh.kickshub.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,6 +28,20 @@ public class CartItemServiceImpl implements CartItemService {
     CartRepository cartRepository;
     CartItemMapper mapper;
     ProductDetailRepository productDetailRepository;
+    UserRepository userRepository;
+
+    @Override
+    public CartResponse getCartByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        Cart cart = cartRepository.findByUser(user);
+        return CartResponse.builder()
+                .id(cart.getId())
+                .totalQty(cart.getTotalQty())
+                .userId(cart.getUser().getId())
+                .build();
+    }
 
     @Override
     @Transactional
