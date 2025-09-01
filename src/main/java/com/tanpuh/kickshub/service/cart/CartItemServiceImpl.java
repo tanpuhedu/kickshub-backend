@@ -39,6 +39,9 @@ public class CartItemServiceImpl implements CartItemService {
         CartItem cartItem = cartItemRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.CART_ITEM_NOT_FOUND));
 
+        if (cartItem.getProductDetail().getStockQty() < quantity)
+            throw new RuntimeException("not enough qty");
+
         cartItem.setQty(cartItem.getQty() + quantity);
 
         Cart cart = cartItem.getCart();
@@ -73,16 +76,24 @@ public class CartItemServiceImpl implements CartItemService {
                 .orElse(null);
 
         if (currentCartItem != null) { // sp đã có trong cart rồi -> cộng dồn số lượng
-            currentCartItem.setQty(currentCartItem.getQty() + dto.getQty());
+            Integer newCartItemQty = currentCartItem.getQty() + dto.getQty();
+            if (productDetail.getStockQty() < newCartItemQty)
+                throw new RuntimeException("not enough qty");
+
+            currentCartItem.setQty(newCartItemQty);
             cart.setTotalQty(cart.getTotalQty() + dto.getQty());
 
             return cartItemRepository.save(currentCartItem);
         } else { // sp chưa có trong cart -> tạo item mới
-            cart.setTotalQty(cart.getTotalQty() + dto.getQty());
+            Integer newCartItemQty = dto.getQty();
+            if (productDetail.getStockQty() < newCartItemQty)
+                throw new RuntimeException("not enough qty");
+
+            cart.setTotalQty(cart.getTotalQty() + newCartItemQty);
             cartRepository.save(cart);
 
             CartItem cartItem = CartItem.builder()
-                    .qty(dto.getQty())
+                    .qty(newCartItemQty)
                     .productDetail(productDetail)
                     .cart(cart)
                     .build();
