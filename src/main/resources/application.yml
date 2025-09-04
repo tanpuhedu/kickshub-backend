@@ -23,7 +23,7 @@ cloudinary:
 open-api:
   title: "KicksHub API document"
   version: "v1.0.0"
-  description: "KicksHub API service"
+  description: "KicksHub API "
   server-url: "http://localhost:8080"
   server-name: "server test"
 
